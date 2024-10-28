@@ -8,6 +8,71 @@
 <body>
     <label for="input">Numar Configuratii</label>
     <input type="number" id="input"><br><br>
-    <button disabled id="continua">Continue</button>
+    <button id="continua" onclick="activare()" >Continue</button><br><br>
+
+    <div id="configuratie" hidden>
+        <label for="id">Id: </label> 
+        <input type="number" id="id"><br><br>
+        <label for="model">Model: </label>
+        <input type="text" id="model"><br><br>
+        <label for="pret">Pret: </label>
+        <input type="number" id="pret"><br><br>
+        <label for="producator">Producator: </label>
+        <input type="text" id="producator"><br><br>
+        <label for="memory">Memory: </label>
+        <input type="number" id="memory"><br><br>
+        <button id="adauga" onclick="adauga_in_array()" >ADD</button><br><br>
+    </div>
+
+    <div id="min_max" hidden>
+        <button id="ieftin">Show the cheapest</button>
+        <button id="scump">Show the most expensive</button>
+    </div>
+
+    <script>
+        let numar_config = []
+        i = 0
+
+        function activare() {
+            let numar_configuratii = Number(document.getElementById("input").value)
+            if(numar_configuratii >= 5){
+                document.getElementById("configuratie").toggleAttribute("hidden")
+                document.getElementById("continua").toggleAttribute("disabled")
+                numar_config.length = numar_configuratii
+            }else{
+                alert("Mai incearca (Numarul trebuie sa fie mai mare de 5)")
+                document.getElementById("input").value = ""
+            }
+        }
+        function configuratie(id,model,pret,producator,memory){
+            this.id = id;
+            this.model = model;
+            this.pret = pret;
+            this.producator = producator;
+            this.memory = memory;
+        }
+        function adauga_in_array(){
+            let id = document.getElementById("id").value
+            let model = document.getElementById("model").value
+            let pret = document.getElementById("pret").value
+            let producator = document.getElementById("producator").value
+            let memory = document.getElementById("memory").value
+            numar_config[i] = new configuratie(id,model,pret,producator,memory)
+            i=i+1
+            console.log(numar_config)
+
+            document.getElementById("id").value = ""
+            document.getElementById("model").value = ""
+            document.getElementById("pret").value = ""
+            document.getElementById("producator").value = ""
+            document.getElementById("memory").value = ""
+            if(i == numar_config.length){
+                console.log("merge")
+                document.getElementById("configuratie").toggleAttribute("hidden")
+                document.getElementById("min_max").toggleAttribute("hidden")
+            }
+        }
+
+    </script>
 </body>
 </html>
